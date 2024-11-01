@@ -3,17 +3,20 @@
 
 #include <string>
 #include <vector>
+#include <cstddef>
+
+#include "CipherMode.hpp"
 
 class CaesarCipher{
 public:
-    explicit CaesarCipher(const size_t key);
+    explicit CaesarCipher(const std::size_t key);
     explicit CaesarCipher(const std::string& key);
 
     std::string applyCipher(const std::string& inputText, 
-                            const bool encrypt) const;
+                            const CipherMode mode) const;
 
 private:
-    size_t key_ {0};
+    std::size_t key_ {0};
     // Create the alphabet container
     const std::vector<char> alphabet_ = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',

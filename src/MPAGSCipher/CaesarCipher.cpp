@@ -1,8 +1,10 @@
 #include <iostream>
+#include <cstddef>
 #include "CaesarCipher.hpp"
 #include "ProcessCommandLine.hpp"
+#include "CipherMode.hpp"
 
-CaesarCipher::CaesarCipher(size_t key) : key_{key} {};
+CaesarCipher::CaesarCipher(std::size_t key) : key_{key} {};
 
 CaesarCipher::CaesarCipher(const std::string& key) : key_{0} {
     // We have the key as a string, but the Caesar cipher needs an unsigned long, so we first need to convert it
@@ -33,10 +35,10 @@ CaesarCipher::CaesarCipher(const std::string& key) : key_{0} {
 };
 
 std::string CaesarCipher::applyCipher(const std::string& inputText,
-                                      const bool encrypt) const{
+                                      const CipherMode mode) const{
     // Create the output string
     std::string outputText;
-    std::cout << "Key is " << key_ << std::endl;
+
     // Make sure that the key is in the range 0 - 25
     const std::size_t truncatedKey{key_ % alphabetSize_};
 
@@ -45,12 +47,12 @@ std::string CaesarCipher::applyCipher(const std::string& inputText,
     for (const auto& origChar : inputText) {
         // For each character in the input text, find the corresponding position in
         // the alphabet by using an indexed loop over the alphabet container
-        for (size_t i{0}; i < alphabetSize_; ++i) {
+        for (std::size_t i{0}; i < alphabetSize_; ++i) {
             if (origChar == alphabet_[i]) {
                 // Apply the appropriate shift (depending on whether we're encrypting
                 // or decrypting) and determine the new character
                 // Can then break out of the loop over the alphabet
-                if (encrypt) {
+                if (mode == CipherMode::Encrypt) {
                     processedChar = alphabet_[(i + truncatedKey) % alphabetSize_];
                 } else {
                     processedChar = alphabet_[(i + alphabetSize_ - truncatedKey) %
