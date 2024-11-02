@@ -15,14 +15,6 @@ int main(int argc, char* argv[])
     // Convert the command-line arguments into a more easily usable form
     const std::vector<std::string> cmdLineArgs{argv, argv + argc};
 
-    // Options that might be set by the command-line arguments
-    // bool helpRequested{false};
-    // bool versionRequested{false};
-    // std::string inputFile{""};
-    // std::string outputFile{""};
-    // std::string cipherKey{""};
-    // bool encrypt{true};
-
     ProgramSettings programSettings{false, false, "", "", "", CipherMode::Encrypt};
 
     // Process command line arguments

@@ -52,11 +52,14 @@ std::string CaesarCipher::applyCipher(const std::string& inputText,
                 // Apply the appropriate shift (depending on whether we're encrypting
                 // or decrypting) and determine the new character
                 // Can then break out of the loop over the alphabet
-                if (mode == CipherMode::Encrypt) {
-                    processedChar = alphabet_[(i + truncatedKey) % alphabetSize_];
-                } else {
-                    processedChar = alphabet_[(i + alphabetSize_ - truncatedKey) %
-                                             alphabetSize_];
+                switch (mode) {
+                    case CipherMode::Encrypt:
+                        processedChar = alphabet_[(i + truncatedKey) % alphabetSize_];
+                        break;
+                    case CipherMode::Decrypt:
+                        processedChar = alphabet_[(i + alphabetSize_ - truncatedKey) %
+                                                 alphabetSize_];
+                        break;
                 }
                 break;
             }
