@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <cstddef>
 
 std::string runCaesarCipher(const std::string& inputText, const std::size_t key,
                             const bool encrypt)
@@ -23,7 +24,7 @@ std::string runCaesarCipher(const std::string& inputText, const std::size_t key,
     for (const auto& origChar : inputText) {
         // For each character in the input text, find the corresponding position in
         // the alphabet by using an indexed loop over the alphabet container
-        for (size_t i{0}; i < alphabetSize; ++i) {
+        for (std::size_t i{0}; i < alphabetSize; ++i) {
             if (origChar == alphabet[i]) {
                 // Apply the appropriate shift (depending on whether we're encrypting
                 // or decrypting) and determine the new character
